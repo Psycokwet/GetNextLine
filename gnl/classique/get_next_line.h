@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/09 17:04:10 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/10 20:47:47 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 ** read, malloc, free authorized
 */
 
-
 typedef struct	s_fd_read_wip
 {
 	int		    	fd;
@@ -31,16 +30,9 @@ typedef struct	s_fd_read_wip
 }				t_fd_read_wip, *pt_fd_read_wip;
 
 int	get_next_line(int fd, char **line);
-
-
-// from libft
-
 int	ft_strchr(const char *s, int c, size_t * indice);
 char	*ft_strdup(const char *src);
-
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
-
-
 
 #endif
