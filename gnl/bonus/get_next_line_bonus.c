@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/05 12:09:02 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/08 14:23:11 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #include <stdio.h>
 
@@ -41,24 +41,41 @@ size_t	ft_strlen(const char *s)
 
 t_list *	get_current_node(t_list ** head, int fd)
 {
+	t_list *lst;
+
+	if(!*head)
+		*head = ft_lstnew(fd);
+	lst = *head;
 	while(1){
-		if(!*head){
+		if(!lst){
+			lst = *head;
 			*head = ft_lstnew(fd);
-			if(head == NULL)
+			if(head == NULL){
+				*head = lst;
 				return NULL;
+			}
+			(*head)->next = lst;
+			lst = *head;
 		}
 
-		if((*head)->fd_wip->fd == fd)
-			return *head;
-		else
-			head = &((*head)->next);
+		if(lst->fd_wip->fd == fd){
+			return lst;
+			}
+		else{
+
+			lst = lst->next;
+		}
 	}
+
 }
 
+
 int cut_line_n(char **line, pt_fd_read_wip fd_wip, size_t n_indice){
+	if(!line)
+		return -1;
 	if(*line)
 		free(*line);
-	*line = malloc(sizeof(char) * n_indice + 1);
+	*line = malloc(sizeof(char) * (n_indice + 1));
 	if(!*line)
 		return -1;
 	ft_strlcpy(*line, fd_wip->line_wip, n_indice + 1);
@@ -93,17 +110,25 @@ int append_buffer(pt_fd_read_wip fd_wip, char* buffer, int ret_read){
 int read_full_line(t_list * current_node, size_t * n_indice, char **line){
 	int ret_read = 1;
     char * buffer = (char*)malloc(BUFFER_SIZE * sizeof(char) + 1);
+	if(!buffer)
+		return -1;
     while(ret_read)
     {
 		ret_read = read(current_node->fd_wip->fd, buffer, BUFFER_SIZE);
-		if(ret_read == -1)
+		if(ret_read == -1){
+			free(buffer);
 			return -1;
+		}
 		buffer[ret_read] = '\0';
 		append_buffer(current_node->fd_wip, buffer, ret_read);
-		if(ft_strchr(current_node->fd_wip->line_wip, '\n', n_indice))
+		if(ft_strchr(current_node->fd_wip->line_wip, '\n', n_indice)){
+			free(buffer);
 			return cut_line_n(line, current_node->fd_wip, *n_indice);
-		if(ret_read == 0)
+		}
+		if(ret_read == 0){
+			free(buffer);
 			return cut_line_n(line, current_node->fd_wip, current_node->fd_wip->size) == 1? 0: -1;
+		}
     }
 	return -1;
 }
@@ -123,7 +148,8 @@ int	get_next_line(int fd, char **line)
         }
 	}
 	return_value = read_full_line(current_node, &n_indice, line);
-	//if(return_value != 1)
-	//	ft_lstdelone(current_node);
+	if(return_value != 1){
+		ft_lstdelnode(&head, fd);
+	}
 	return return_value;
 }
