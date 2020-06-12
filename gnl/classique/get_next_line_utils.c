@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:50:48 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:51:57 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	while (src[i])
 		i++;
 	return (i);
+}
+
+int cut_line_n(char **line, t_fd_read_wip *fd_wip)
+{
+	size_t n_indice;
+
+	n_indice = 0;
+	if (!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
+		return (2);
+	
+	*line = malloc(sizeof(char) * (n_indice + 1));
+	if (!(*line))
+		return (-1);
+	ft_strlcpy(*line, fd_wip->line_wip, n_indice + 1);
+	char * tmp = ft_strdup(fd_wip->line_wip + n_indice + 1);
+	free(fd_wip->line_wip);
+	fd_wip->line_wip = tmp;
+	fd_wip->size = fd_wip->size - (n_indice + 1);
+	return (fd_wip->last_ret_read == 0 ? 0 : 1);
 }
 
 int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
