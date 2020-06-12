@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:47:57 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:48:34 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 		buffer[fd_wip->last_ret_read] = '\0';
 		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
 		cut_line_n_ret = cut_line_n(line, fd_wip);
-		if (cut_line_n_ret != 2){
+		if (cut_line_n_ret != 2)
+		{
 			free(buffer);
 			return (cut_line_n_ret);
 		}
