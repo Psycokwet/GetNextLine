@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:48:34 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:48:52 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 			free(buffer);
 			return (cut_line_n_ret);
 		}
-    }
+	}
 	free(buffer);
 	*line = fd_wip->line_wip;
 	fd_wip->line_wip = NULL;
