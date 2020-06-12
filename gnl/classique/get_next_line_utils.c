@@ -6,13 +6,13 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:24:31 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:25:08 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strchr(const char *s, int c, size_t *indice)
+int			ft_strchr(const char *s, int c, size_t *indice)
 {
 	size_t	i;
 
@@ -43,7 +43,7 @@ char		*ft_strdup(const char *src)
 	return (dst);
 }
 
-size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	int		i;
 
