@@ -6,15 +6,12 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:11:15 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:22:56 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-#include<stdio.h>
-
-// from libft
 int	ft_strchr(const char *s, int c, size_t *indice)
 {
 	size_t	i;
