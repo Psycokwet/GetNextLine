@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:40:46 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:42:03 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,43 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
+int read_full_line(t_fd_read_wip *fd_wip, char **line)
+{
+	int		cut_line_n_ret = 1;
+    char	*buffer;
+
+	buffer = NULL;
+	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
+		return (-1);
+    while (fd_wip->last_ret_read)
+	{
+		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
+		if (fd_wip->last_ret_read == -1){
+			free(buffer);
+			return (-1);
+		}
+		buffer[fd_wip->last_ret_read] = '\0';
+		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
+		cut_line_n_ret = cut_line_n(line, fd_wip);
+		if (cut_line_n_ret != 2){
+			free(buffer);
+			return (cut_line_n_ret);
+		}
+    }
+	free(buffer);
+	*line = fd_wip->line_wip;
+	fd_wip->line_wip = NULL;
+	return (0);
+}
+
 t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 {
 	if (current_wip && current_wip->fd == fd)
 		return (current_wip);
 	if (current_wip)
 	{
-		if(current_wip->line_wip)
+		if (current_wip->line_wip)
 			free(current_wip->line_wip);
 		free(current_wip);
 	}
