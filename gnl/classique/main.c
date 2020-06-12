@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 20:04:14 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 20:05:01 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		main(int argc, char **argv)
 	char	**line;
 	int		*fd;
 	int		*openfd;
-	int i;
+	int		i;
+	int		stop;
 
 	i = 0;
 	line = (char**)malloc(sizeof(char*) * argc);
@@ -42,7 +43,7 @@ int		main(int argc, char **argv)
 		free(line);
 		return (-1);
 	}
-	int stop = 1;
+	stop = 1;
 	for (i = 1; i < argc; i++)
 	{
 		fd[i] = open(argv[i], O_RDONLY);
