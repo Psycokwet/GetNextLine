@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 20:02:55 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 20:04:14 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int		main(int argc, char **argv)
 	char	**line;
 	int		*fd;
 	int		*openfd;
+	int i;
 
+	i = 0;
 	line = (char**)malloc(sizeof(char*) * argc);
 	if (!line)
 		return (-1);
@@ -41,7 +43,7 @@ int		main(int argc, char **argv)
 		return (-1);
 	}
 	int stop = 1;
-	for (int i = 1; i < argc; i++)
+	for (i = 1; i < argc; i++)
 	{
 		fd[i] = open(argv[i], O_RDONLY);
 		if (fd[i] < 0)
@@ -53,7 +55,7 @@ int		main(int argc, char **argv)
 	while (stop != argc)
 	{
 		stop = 1;
-		for (int i = 1; i < argc; i++)
+		for (i = 1; i < argc; i++)
 		{
 			if (openfd[i] == 1)
 			{
@@ -67,7 +69,7 @@ int		main(int argc, char **argv)
 				stop ++;
 		}
 	}
-	for (int i = 1; i < argc; i++)
+	for (i = 1; i < argc; i++)
 	{
 		if (openfd[i] == -1){
 			printf("main ERROR DETECTED FD : [%d], ARGV : [%s]", fd[i], argv[i]);
