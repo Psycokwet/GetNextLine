@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:37:05 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:37:23 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,5 @@ int	get_next_line(int fd, char **line)
 				free(current_wip->line_wip);
 			free(current_wip);
 		}
-
 	return (return_value);
 }
