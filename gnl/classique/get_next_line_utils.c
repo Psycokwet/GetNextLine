@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:40:17 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:40:46 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 {
 	if (current_wip && current_wip->fd == fd)
-		return current_wip;
+		return (current_wip);
 	if (current_wip)
 	{
 		if(current_wip->line_wip)
@@ -72,7 +72,7 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	}
 	current_wip = (t_fd_read_wip*)malloc(sizeof(t_fd_read_wip));
 	if (!current_wip)
-		return NULL;
+		return (NULL);
 	current_wip->fd = fd;
 	current_wip->line_wip = NULL;
 	current_wip->size = 0;
