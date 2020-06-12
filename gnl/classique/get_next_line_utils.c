@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:35:09 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:36:04 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 int	get_next_line(int fd, char **line)
 {
 	static t_fd_read_wip	*current_wip;
-	int 					cut_line_n_ret;
+	int						cut_line_n_ret;
 	int						return_value;
 
 	if (!line)
@@ -73,11 +73,11 @@ int	get_next_line(int fd, char **line)
 	current_wip = get_current_wip(current_wip, fd);
 	if (!current_wip)
 		return (-1);
-	if (current_wip->line_wip){
+	if (current_wip->line_wip)
+	{
 		cut_line_n_ret = cut_line_n(line, current_wip);
-		if (cut_line_n_ret != 2){
+		if (cut_line_n_ret != 2)
             return (cut_line_n_ret);
-        }
 	}
 	return_value = read_full_line(current_wip, line);
 	if (return_value != 1){
