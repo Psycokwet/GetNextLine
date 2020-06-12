@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:55:19 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:56:07 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 size_t	ft_strlen(const char *s)
 {
-	if(!s)
-		return -1;
 	size_t i;
 
+	if (!s)
+		return (-1);
 	i = 0;
 	while (s[i])
 		i++;
