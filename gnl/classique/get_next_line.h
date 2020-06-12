@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/10 21:15:21 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:25:38 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ typedef struct	s_fd_read_wip
 	int		   	last_ret_read;
 	size_t	    size;
 	char	    *line_wip;
-}				t_fd_read_wip;
-
-typedef struct s_fd_read_wip *pt_fd_read_wip;
 
 int		get_next_line(int fd, char **line);
 int		ft_strchr(const char *s, int c, size_t *indice);
