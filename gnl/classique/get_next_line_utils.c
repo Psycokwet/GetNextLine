@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:52:41 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:53:26 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,11 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 int				cut_line_n(char **line, t_fd_read_wip *fd_wip)
 {
 	size_t	n_indice;
-	char * tmp;
+	char 	*tmp;
 
 	n_indice = 0;
 	if (!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
 		return (2);
-	
 	*line = malloc(sizeof(char) * (n_indice + 1));
 	if (!(*line))
 		return (-1);
