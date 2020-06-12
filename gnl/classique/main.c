@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 20:05:01 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 20:06:55 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,13 @@ int		main(int argc, char **argv)
 					printf("Error encountered: [%d] OPEN? %d\n", fd[i], openfd[i]);
 			}
 			else
-				stop ++;
+				stop++;
 		}
 	}
 	for (i = 1; i < argc; i++)
 	{
-		if (openfd[i] == -1){
+		if (openfd[i] == -1)
 			printf("main ERROR DETECTED FD : [%d], ARGV : [%s]", fd[i], argv[i]);
-		}
 		else
 		{
 			free(line[i]);
