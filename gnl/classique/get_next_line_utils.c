@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:33:52 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:34:11 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	get_next_line(int fd, char **line){
 	static t_fd_read_wip	*current_wip;
 	int 					cut_line_n_ret;
 	int						return_value;
+
 	if (!line)
 		return (-1);
 	if (*line)
