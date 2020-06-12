@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/10 20:18:48 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:29:36 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	ft_strlen(const char *s)
 ** -1 : Une erreur est survenue
 */
 //
-int cut_line_n(char **line, pt_fd_read_wip fd_wip){
+int cut_line_n(char **line, t_fd_read_wip *fd_wip){
 	size_t n_indice = 0;
 	if(!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
 		return 2;
@@ -57,7 +57,7 @@ int cut_line_n(char **line, pt_fd_read_wip fd_wip){
 	return fd_wip->last_ret_read == 0 ? 0 : 1;
 }
 //
-int append_buffer(pt_fd_read_wip fd_wip, char* buffer, int ret_read){
+int append_buffer(t_fd_read_wip *fd_wip, char* buffer, int ret_read){
 	char *tmp;
 	tmp = NULL;
 	if(!fd_wip->line_wip){
@@ -79,7 +79,7 @@ int append_buffer(pt_fd_read_wip fd_wip, char* buffer, int ret_read){
 	return 0;
 }
 //
-int read_full_line(pt_fd_read_wip fd_wip, char **line){
+int read_full_line(t_fd_read_wip *fd_wip, char **line){
 	int cut_line_n_ret = 1;
     char * buffer;
 	buffer = NULL;
@@ -107,7 +107,7 @@ int read_full_line(pt_fd_read_wip fd_wip, char **line){
 }
 
 //
-pt_fd_read_wip get_current_wip(pt_fd_read_wip current_wip, int fd){
+t_fd_read_wip *get_current_wip(t_fd_read_wip *current_wip, int fd){
 	if(current_wip && current_wip->fd == fd)
 		return current_wip;
 	if(current_wip){
@@ -115,7 +115,7 @@ pt_fd_read_wip get_current_wip(pt_fd_read_wip current_wip, int fd){
 			free(current_wip->line_wip);
 		free(current_wip);
 	}
-	current_wip = (pt_fd_read_wip)malloc(sizeof(t_fd_read_wip));
+	current_wip = (t_fd_read_wip*)malloc(sizeof(t_fd_read_wip));
 	if(!current_wip)
 		return NULL;
 	current_wip->fd = fd;
@@ -128,7 +128,7 @@ pt_fd_read_wip get_current_wip(pt_fd_read_wip current_wip, int fd){
 
 
 int	get_next_line(int fd, char **line){
-	static pt_fd_read_wip current_wip;
+	static t_fd_read_wip *current_wip;
 	int cut_line_n_ret;
 	int return_value;
 	if(!line)
