@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:42:03 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:43:13 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,12 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (i);
 }
 
-int read_full_line(t_fd_read_wip *fd_wip, char **line)
+int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 {
-	int		cut_line_n_ret = 1;
+	int		cut_line_n_ret;
     char	*buffer;
 
+	cut_line_n_ret = 1;
 	buffer = NULL;
 	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
