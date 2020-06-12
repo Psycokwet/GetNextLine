@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:59:01 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 20:07:39 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	}
 	return (0);
 }
-
+// :(
 int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 {
 	int		cut_line_n_ret;
@@ -90,7 +90,7 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	current_wip->last_ret_read = -2;
 	return (current_wip);
 }
-
+// :(
 int				get_next_line(int fd, char **line)
 {
 	static t_fd_read_wip	*current_wip;
