@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/05 16:01:38 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:11:15 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include<stdio.h>
 
 // from libft
-int	ft_strchr(const char *s, int c, size_t * indice)
+int	ft_strchr(const char *s, int c, size_t *indice)
 {
 	size_t	i;
 
@@ -37,7 +37,8 @@ int	ft_strchr(const char *s, int c, size_t * indice)
 char		*ft_strdup(const char *src)
 {
     char	*dst;
-    ssize_t len = ft_strlen(src) + 1;
+    ssize_t len;
+	len = ft_strlen(src) + 1;
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
