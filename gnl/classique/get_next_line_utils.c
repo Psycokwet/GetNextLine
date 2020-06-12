@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:48:52 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:50:03 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,32 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	while (src[i])
 		i++;
 	return (i);
+}
+
+int append_buffer(t_fd_read_wip *fd_wip, char* buffer, int ret_read)
+{
+	char *tmp;
+
+	tmp = NULL;
+	if (!fd_wip->line_wip)
+	{
+		fd_wip->size = ret_read;
+		fd_wip->line_wip = ft_strdup(buffer);
+		if (!fd_wip->line_wip)
+			return (-1);
+	}
+	else
+	{
+		tmp = (char*)malloc(sizeof(char) * ((int)fd_wip->size + 33));
+		if (!tmp)
+			return (-1);
+		ft_strlcpy(tmp, fd_wip->line_wip, fd_wip->size + 1);
+		ft_strlcpy(tmp + fd_wip->size, buffer, BUFFER_SIZE + 1);
+		free(fd_wip->line_wip);
+		fd_wip->line_wip = tmp;
+		fd_wip->size += ret_read;
+	}
+	return (0);
 }
 
 int				read_full_line(t_fd_read_wip *fd_wip, char **line)
