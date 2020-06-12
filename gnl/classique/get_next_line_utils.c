@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:36:04 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:37:05 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ int	get_next_line(int fd, char **line)
 	{
 		cut_line_n_ret = cut_line_n(line, current_wip);
 		if (cut_line_n_ret != 2)
-            return (cut_line_n_ret);
+			return (cut_line_n_ret);
 	}
 	return_value = read_full_line(current_wip, line);
-	if (return_value != 1){
-		if (current_wip){
+	if (return_value != 1)
+		if (current_wip)
+		{
 			if (current_wip->line_wip)
 				free(current_wip->line_wip);
 			free(current_wip);
 		}
-	}
+
 	return (return_value);
 }
