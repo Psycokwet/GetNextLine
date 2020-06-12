@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 19:39:58 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/12 19:40:17 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	current_wip->line_wip = NULL;
 	current_wip->size = 0;
 	current_wip->last_ret_read = -2;
-	return current_wip;
+	return (current_wip);
 }
 
 int				get_next_line(int fd, char **line)
