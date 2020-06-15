@@ -6,11 +6,12 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/15 14:54:06 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 20:28:21 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 {
@@ -26,7 +27,7 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	}
 	else
 	{
-		tmp = (char*)malloc(sizeof(char) * ((int)fd_wip->size + 33));
+		tmp = (char*)malloc(sizeof(char) * ((int)fd_wip->size + BUFFER_SIZE + 1));
 		if (!tmp)
 			return (-1);
 		ft_strlcpy(tmp, fd_wip->line_wip, fd_wip->size + 1);
