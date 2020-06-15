@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/15 14:52:26 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 14:53:39 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	return (current_wip);
 }
 
-void			gnl_cleaning(int return_value, char *buffer, t_fd_read_wip **current_wip)
+void			gnl_cleaning(int return_value, char *buffer, 
+t_fd_read_wip **current_wip)
 {
 	free(buffer);
 	if (return_value != 1)
