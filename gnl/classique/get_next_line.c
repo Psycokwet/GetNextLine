@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 20:07:39 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 13:30:33 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,25 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	}
 	return (0);
 }
-// :(
-int				read_full_line(t_fd_read_wip *fd_wip, char **line)
+
+int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 {
 	int		cut_line_n_ret;
-	char	*buffer;
 
 	cut_line_n_ret = 1;
-	buffer = NULL;
-	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (-1);
 	while (fd_wip->last_ret_read)
 	{
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
 		if (fd_wip->last_ret_read == -1)
-		{
-			free(buffer);
 			return (-1);
-		}
 		buffer[fd_wip->last_ret_read] = '\0';
 		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
 		cut_line_n_ret = cut_line_n(line, fd_wip);
 		if (cut_line_n_ret != 2)
-		{
-			free(buffer);
 			return (cut_line_n_ret);
-		}
 	}
-	free(buffer);
 	*line = fd_wip->line_wip;
 	fd_wip->line_wip = NULL;
 	return (0);
@@ -96,7 +86,9 @@ int				get_next_line(int fd, char **line)
 	static t_fd_read_wip	*current_wip;
 	int						cut_line_n_ret;
 	int						return_value;
+	char	*buffer;
 
+	buffer = NULL;
 	if (!line)
 		return (-1);
 	if (*line)
@@ -110,7 +102,9 @@ int				get_next_line(int fd, char **line)
 		if (cut_line_n_ret != 2)
 			return (cut_line_n_ret);
 	}
-	return_value = read_full_line(current_wip, line);
+	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	return_value = read_full_line(current_wip, line, buffer);
+	free(buffer);
 	if (return_value != 1)
 		if (current_wip)
 		{
