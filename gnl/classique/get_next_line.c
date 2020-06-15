@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/15 14:29:16 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 14:30:23 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int				get_next_line(int fd, char **line)
 			return (cut_line_n_ret);
 	}
 	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if(!buffer)
-		return -1;
+	if (!buffer)
+		return (-1);
 	return_value = read_full_line(current_wip, line, buffer);
 	gnl_cleaning(return_value, buffer, &current_wip);
 	return (return_value);
