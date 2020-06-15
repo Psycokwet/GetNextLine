@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/15 13:30:33 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 14:17:58 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 {
 	int		cut_line_n_ret;
 
-	cut_line_n_ret = 1;
 	if (!buffer)
 		return (-1);
+	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
@@ -81,12 +81,25 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	return (current_wip);
 }
 // :(
+
+void gnl_cleaning(int return_value, char *buffer, t_fd_read_wip **current_wip)
+{
+	free(buffer);
+	if (return_value != 1)
+		if (current_wip && *current_wip)
+		{
+			if ((*current_wip)->line_wip)
+				free((*current_wip)->line_wip);
+			free(*current_wip);
+			*current_wip = NULL;
+		}
+}
 int				get_next_line(int fd, char **line)
 {
 	static t_fd_read_wip	*current_wip;
 	int						cut_line_n_ret;
 	int						return_value;
-	char	*buffer;
+	char					*buffer;
 
 	buffer = NULL;
 	if (!line)
@@ -103,14 +116,9 @@ int				get_next_line(int fd, char **line)
 			return (cut_line_n_ret);
 	}
 	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if(!buffer)
+		return -1;
 	return_value = read_full_line(current_wip, line, buffer);
-	free(buffer);
-	if (return_value != 1)
-		if (current_wip)
-		{
-			if (current_wip->line_wip)
-				free(current_wip->line_wip);
-			free(current_wip);
-		}
+	gnl_cleaning(return_value, buffer, &current_wip);
 	return (return_value);
 }
