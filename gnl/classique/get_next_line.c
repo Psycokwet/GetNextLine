@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 10:32:03 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 11:04:46 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
+	printf("WRITE IN BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE));
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
 		if (fd_wip->last_ret_read == -1)
 			return (-1);
+	printf("WRITE IN BUFFER WITH INDICE [%d]\n", fd_wip->last_ret_read);
 		buffer[fd_wip->last_ret_read] = '\0';
 		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
 		cut_line_n_ret = cut_line_n(line, fd_wip);
@@ -122,6 +124,8 @@ int				get_next_line(int fd, char **line)
 		if (cut_line_n_ret != 2)
 			return (cut_line_n_ret);
 	}
+	printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
+
 	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (-1);
