@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 11:04:46 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 16:07:41 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
-	printf("WRITE IN BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE));
+	printf("WRITE WITH READ IN BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE));
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
 		if (fd_wip->last_ret_read == -1)
 			return (-1);
