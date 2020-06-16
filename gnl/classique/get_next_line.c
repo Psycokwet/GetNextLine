@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 10:25:57 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 10:27:46 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int				get_next_line(int fd, char **line)
 		return (-1);
 	if (*line)
 		free(*line);
-	if (BUFFER_SIZE >= 0)
+	if (BUFFER_SIZE >= 0 || fd < 0)
 		return (-1);
 	current_wip = get_current_wip(current_wip, fd);
 	if (!current_wip)
