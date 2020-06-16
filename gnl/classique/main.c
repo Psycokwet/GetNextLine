@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/12 20:06:55 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/15 20:54:05 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,14 @@ int		main(int argc, char **argv)
 	free(openfd);
 	free(line);
 	free(fd);
+
+
+	char * line2 = NULL;
+	int ret = 1;
+	while (ret == 1){
+		ret = get_next_line(0, &line2);
+		printf("Test : [%d][%s]\n", ret , line2);
+	}
+	free(line2);
 	return (0);
 }
