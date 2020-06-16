@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/14 20:00:49 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 10:57:41 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ char		*ft_strdup(const char *src)
 	ssize_t len;
 
 	len = ft_strlen(src) + 1;
+	printf("ALLOC WRITING IN WIP WITH SIZE [%ld]\n", len);
+		
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
