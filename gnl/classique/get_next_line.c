@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 16:07:41 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 21:00:56 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	return (0);
 }
 
-int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
+int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 {
 	int		cut_line_n_ret;
-
-	if (!buffer)
-		return (-1);
+	char	buffer[BUFFER_SIZE + 1];
+	
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
@@ -87,10 +86,8 @@ t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
 	return (current_wip);
 }
 
-void			gnl_cleaning(int return_value, char *buffer,
-t_fd_read_wip **current_wip)
+void			gnl_cleaning(int return_value, t_fd_read_wip **current_wip)
 {
-	free(buffer);
 	if (return_value != 1)
 		if (current_wip && *current_wip)
 		{
@@ -106,9 +103,7 @@ int				get_next_line(int fd, char **line)
 	static t_fd_read_wip	*current_wip;
 	int						cut_line_n_ret;
 	int						return_value;
-	char					*buffer;
 
-	buffer = NULL;
 	if (!line)
 		return (-1);
 	if (*line)
@@ -125,11 +120,7 @@ int				get_next_line(int fd, char **line)
 			return (cut_line_n_ret);
 	}
 	printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
-
-	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (-1);
-	return_value = read_full_line(current_wip, line, buffer);
-	gnl_cleaning(return_value, buffer, &current_wip);
+	return_value = read_full_line(current_wip, line);
+	gnl_cleaning(return_value, &current_wip);
 	return (return_value);
 }
