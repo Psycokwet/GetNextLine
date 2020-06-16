@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 10:27:46 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/16 10:28:52 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	}
 	else
 	{
-		printf("ALLOC TMP WITH SIZE [%d]\n", ((int)fd_wip->size + BUFFER_SIZE + 1));
+		//printf("ALLOC TMP WITH SIZE [%d]\n", ((int)fd_wip->size + BUFFER_SIZE + 1));
 		tmp = (char*)malloc(sizeof(char) * ((int)fd_wip->size + BUFFER_SIZE + 1));
 		if (!tmp)
 			return (-1);
-		printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s]\n", fd_wip->size + 1, fd_wip->line_wip);
+		//printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s]\n", fd_wip->size + 1, fd_wip->line_wip);
 		ft_strlcpy(tmp, fd_wip->line_wip, fd_wip->size + 1);
 		ft_strlcpy(tmp + fd_wip->size, buffer, BUFFER_SIZE + 1);
-		printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s] OF SIZE [%d]\n", fd_wip->size + 1, buffer, BUFFER_SIZE + 1 );
+		//printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s] OF SIZE [%d]\n", fd_wip->size + 1, buffer, BUFFER_SIZE + 1 );
 		free(fd_wip->line_wip);
 		fd_wip->line_wip = tmp;
 		fd_wip->size += ret_read;
