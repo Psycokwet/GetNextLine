@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 16:40:17 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 18:18:11 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@ typedef struct	s_fd_read_wip
 	ssize_t		size;
 	char		*line_wip;
 }				t_fd_read_wip;
+
+# define EXIT_FAILURE_GNL	-1
+# define EXIT_READ_OPEN		1
+# define EXIT_READ_CLOSED	0
+
+# define APPEND_SUCCES		0
+
+# define LINE_NOT_COMPLETE	2
+
+# define INIT_RET_READ		-2
+
+# define ENDL_FOUND			1
+# define ENDL_NOT_FOUND		0
+
 
 int				ft_strchr(const char *s, int c, ssize_t *indice);
 char			*ft_strdup(const char *src);

@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 13:12:25 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 18:18:45 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int			ft_strchr(const char *s, int c, ssize_t *indice)
 		if ((unsigned char)s[i] == c)
 		{
 			*indice = i;
-			return (1);
+			return (ENDL_FOUND);
 		}
 	if ((unsigned char)s[i] == c)
 	{
 		*indice = i;
-		return (1);
+		return (ENDL_FOUND);
 	}
-	return (0);
+	return (ENDL_NOT_FOUND);
 }
 
 char		*ft_strdup(const char *src)
@@ -37,9 +37,7 @@ char		*ft_strdup(const char *src)
 	char	*dst;
 	size_t len;
 
-	len = ft_strlen(src) + 1;
-	//printf("ALLOC WRITING IN WIP WITH SIZE [%ld]\n", len);
-		
+	len = ft_strlen(src) + 1;		
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
@@ -80,14 +78,14 @@ int			cut_line_n(char **line, t_fd_read_wip *fd_wip)
 
 	n_indice = 0;
 	if (!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
-		return (2);
+		return (LINE_NOT_COMPLETE);
 	*line = malloc(sizeof(char) * (unsigned long)(n_indice + 1));
 	if (!(*line))
-		return (-1);
+		return (EXIT_FAILURE_GNL);
 	ft_strlcpy(*line, fd_wip->line_wip, (size_t)n_indice + 1);
 	tmp = ft_strdup(fd_wip->line_wip + n_indice + 1);
 	free(fd_wip->line_wip);
 	fd_wip->line_wip = tmp;
 	fd_wip->size = fd_wip->size - (n_indice + 1);
-	return (fd_wip->last_ret_read == 0 ? 0 : 1);
+	return (fd_wip->last_ret_read == 0 ? EXIT_READ_CLOSED : EXIT_READ_OPEN);
 }
