@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 13:09:10 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 13:49:28 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t			ft_strlen(const char *s);
 int				cut_line_n(char **line, t_fd_read_wip *fd_wip);
 int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
 ssize_t ret_read);
-int				read_full_line(t_fd_read_wip *fd_wip, char **line);
+int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer);
 t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd);
 void			gnl_cleaning(int return_value, t_fd_read_wip **current_wip);
 int				get_next_line(int fd, char **line);

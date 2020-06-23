@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 13:00:15 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 13:49:39 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, ssize_t ret_read)
 	return (0);
 }
 
-int				read_full_line(t_fd_read_wip *fd_wip, char **line)
+int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 {
 	int		cut_line_n_ret;
-	char	buffer[BUFFER_SIZE + 1];
 	
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
@@ -103,6 +102,7 @@ int				get_next_line(int fd, char **line)
 	static t_fd_read_wip	*current_wip;
 	int						cut_line_n_ret;
 	int						return_value;
+	char					*buffer;
 
 	if (!line)
 		return (-1);
@@ -120,7 +120,9 @@ int				get_next_line(int fd, char **line)
 			return (cut_line_n_ret);
 	}
 	//printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
-	return_value = read_full_line(current_wip, line);
+	buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	return_value = read_full_line(current_wip, line, buffer);
+	free(buffer);
 	gnl_cleaning(return_value, &current_wip);
 	return (return_value);
 }
