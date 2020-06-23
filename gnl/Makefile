@@ -1,9 +1,30 @@
-gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line.c get_next_line_utils.c
-gcc -Wall -Wextra -Werror -D BUFFER_SIZE=32 get_next_line_bonus.c get_next_line_utils_bonus.c
+NAME=gnl
+CFLAGS=-Wall -Werror -Wextra -g3 -fsanitize=address -Weverything -Wno-padded
+INC=-I./classique
+BUFFER_SIZE=32
+CC=clang
+SRCDIR=./classique
+SRCS=get_next_line.c \
+	get_next_line_utils.c \
+	main.c
 
-JUSTE RAPPEL DE LA LIGNE DE COMMANDE, PAS DE MAKEFILE
-edgesd
-fhxggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg!
-1
-2
-LAST LINE
+
+BUILDDIR=./build/
+OBJS=$(SRCS:%.c=$(BUILDDIR)%.o)
+
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJS)
+
+$(BUILDDIR):
+	mkdir -pv $(BUILDDIR)
+
+$(BUILDDIR)%.o: $(SRCDIR)/%.c $(BUILDDIR)
+	$(CC) $(INC) -c $< $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) -o $@
+
+clean:
+	$(RM) -r $(BUILDDIR)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean $(NAME)

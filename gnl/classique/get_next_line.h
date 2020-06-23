@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 18:18:11 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 22:02:38 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct	s_fd_read_wip
 	char		*line_wip;
 }				t_fd_read_wip;
 
-# define EXIT_FAILURE_GNL	-1
 # define EXIT_READ_OPEN		1
 # define EXIT_READ_CLOSED	0
 
@@ -48,7 +47,6 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
 ssize_t ret_read);
 int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer);
 void			set_current_wip(t_fd_read_wip *current_wip, int fd);
-void			gnl_cleaning(int return_value, t_fd_read_wip *current_wip, char *buffer);
 int				get_next_line(int fd, char **line);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 18:18:45 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 21:37:56 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int			cut_line_n(char **line, t_fd_read_wip *fd_wip)
 		return (LINE_NOT_COMPLETE);
 	*line = malloc(sizeof(char) * (unsigned long)(n_indice + 1));
 	if (!(*line))
-		return (EXIT_FAILURE_GNL);
+		return (-EXIT_FAILURE);
 	ft_strlcpy(*line, fd_wip->line_wip, (size_t)n_indice + 1);
 	tmp = ft_strdup(fd_wip->line_wip + n_indice + 1);
 	free(fd_wip->line_wip);
