@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 21:37:56 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 22:25:45 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int			ft_strchr(const char *s, int c, ssize_t *indice)
 char		*ft_strdup(const char *src)
 {
 	char	*dst;
-	size_t len;
+	size_t	len;
 
-	len = ft_strlen(src) + 1;		
+	len = ft_strlen(src) + 1;
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
