@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 14:50:33 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 15:21:47 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 			return (-1);
 	//printf("WRITE IN BUFFER WITH INDICE [%d]\n", fd_wip->last_ret_read);
 		buffer[fd_wip->last_ret_read] = '\0';
-		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
+		if(append_buffer(fd_wip, buffer, fd_wip->last_ret_read) == -1)
+			return -1;
 		cut_line_n_ret = cut_line_n(line, fd_wip);
 		if (cut_line_n_ret != 2)
 			return (cut_line_n_ret);
@@ -65,43 +66,37 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 	return (0);
 }
 
-t_fd_read_wip	*get_current_wip(t_fd_read_wip *current_wip, int fd)
+int			set_current_wip(t_fd_read_wip *current_wip, int fd)
 {
-	if (current_wip && current_wip->fd == fd)
-		return (current_wip);
-	if (current_wip)
-	{
-		if (current_wip->line_wip)
-			free(current_wip->line_wip);
-		free(current_wip);
-	}
-	current_wip = (t_fd_read_wip*)malloc(sizeof(t_fd_read_wip));
 	if (!current_wip)
-		return (NULL);
+		return (-1);
+	if (current_wip->fd == fd)
+		return (0);
+	if (current_wip->line_wip)
+		free(current_wip->line_wip);
 	current_wip->fd = fd;
 	current_wip->line_wip = NULL;
 	current_wip->size = 0;
 	current_wip->last_ret_read = -2;
-	return (current_wip);
+	return (0);
 }
 
-void			gnl_cleaning(int return_value, t_fd_read_wip **current_wip, char *buffer)
+void			gnl_cleaning(int return_value, t_fd_read_wip *current_wip, char *buffer)
 {
-	if (return_value != 1)
-		if (current_wip && *current_wip)
+	if (return_value != 1 && current_wip)
+		if (current_wip->line_wip)
 		{
-			if ((*current_wip)->line_wip)
-				free((*current_wip)->line_wip);
-			free(*current_wip);
-			*current_wip = NULL;
+			free(current_wip->line_wip);
+			current_wip->line_wip = NULL;
 		}
 	if(buffer)
 		free(buffer);
+	buffer = NULL;
 }
 
 int				get_next_line(int fd, char **line)
 {
-	static t_fd_read_wip	*current_wip;
+	static t_fd_read_wip	current_wip;
 	int						cut_line_n_ret;
 	int						return_value;
 	char					*buffer;
@@ -112,18 +107,16 @@ int				get_next_line(int fd, char **line)
 		free(*line);
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (-1);
-	current_wip = get_current_wip(current_wip, fd);
-	if (!current_wip)
-		return (-1);
-	if (current_wip->line_wip)
+	set_current_wip(&current_wip, fd);
+	if (current_wip.line_wip)
 	{
-		cut_line_n_ret = cut_line_n(line, current_wip);
+		cut_line_n_ret = cut_line_n(line, &current_wip);
 		if (cut_line_n_ret != 2)
 			return (cut_line_n_ret);
 	}
 	//printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
 	if((buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return_value = read_full_line(current_wip, line, buffer);
+		return_value = read_full_line(&current_wip, line, buffer);
 	else
 		return_value = -1;
 	
