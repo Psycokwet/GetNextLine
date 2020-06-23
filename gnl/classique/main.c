@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/15 20:54:05 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 13:13:36 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int		main(int argc, char **argv)
 	int		stop;
 
 	i = 0;
-	line = (char**)malloc(sizeof(char*) * argc);
+	line = (char**)malloc(sizeof(char*) * (unsigned long)argc);
 	if (!line)
 		return (-1);
-	fd = (int*)malloc(sizeof(int) * argc);
+	fd = (int*)malloc(sizeof(int) * (unsigned long)argc);
 	if (!fd)
 	{
 		free(line);
 		return (-1);
 	}
-	openfd = (int*)malloc(sizeof(int) * argc);
+	openfd = (int*)malloc(sizeof(int) * (unsigned long)argc);
 	if (!openfd)
 	{
 		free(fd);

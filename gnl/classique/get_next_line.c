@@ -6,14 +6,14 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/16 21:00:56 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/23 13:00:15 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
+int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, ssize_t ret_read)
 {
 	char *tmp;
 
@@ -27,14 +27,14 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer, int ret_read)
 	}
 	else
 	{
-		printf("ALLOC TMP WITH SIZE [%d]\n", ((int)fd_wip->size + BUFFER_SIZE + 1));
-		tmp = (char*)malloc(sizeof(char) * ((int)fd_wip->size + BUFFER_SIZE + 1));
+		//printf("ALLOC TMP WITH SIZE [%d]\n", ((int)fd_wip->size + BUFFER_SIZE + 1));
+		tmp = (char*)malloc(sizeof(char) * (unsigned long)(fd_wip->size + BUFFER_SIZE + 1));
 		if (!tmp)
 			return (-1);
-		printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s]\n", fd_wip->size + 1, fd_wip->line_wip);
-		ft_strlcpy(tmp, fd_wip->line_wip, fd_wip->size + 1);
+		//printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s]\n", fd_wip->size + 1, fd_wip->line_wip);
+		ft_strlcpy(tmp, fd_wip->line_wip, (size_t)(fd_wip->size + 1));
 		ft_strlcpy(tmp + fd_wip->size, buffer, BUFFER_SIZE + 1);
-		printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s] OF SIZE [%d]\n", fd_wip->size + 1, buffer, BUFFER_SIZE + 1 );
+		//printf("ALLOC WRITING IN TMP WITH SIZE [%ld] FROM WIP [%s] OF SIZE [%d]\n", fd_wip->size + 1, buffer, BUFFER_SIZE + 1 );
 		free(fd_wip->line_wip);
 		fd_wip->line_wip = tmp;
 		fd_wip->size += ret_read;
@@ -50,11 +50,11 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line)
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
-	printf("WRITE WITH READ IN BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE));
+	//printf("WRITE WITH READ IN BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE));
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
-		if (fd_wip->last_ret_read == -1)
+		if (fd_wip->last_ret_read < 0)
 			return (-1);
-	printf("WRITE IN BUFFER WITH INDICE [%d]\n", fd_wip->last_ret_read);
+	//printf("WRITE IN BUFFER WITH INDICE [%d]\n", fd_wip->last_ret_read);
 		buffer[fd_wip->last_ret_read] = '\0';
 		append_buffer(fd_wip, buffer, fd_wip->last_ret_read);
 		cut_line_n_ret = cut_line_n(line, fd_wip);
@@ -119,7 +119,7 @@ int				get_next_line(int fd, char **line)
 		if (cut_line_n_ret != 2)
 			return (cut_line_n_ret);
 	}
-	printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
+	//printf("ALLOC BUFFER WITH SIZE [%d]\n", (BUFFER_SIZE + 1));
 	return_value = read_full_line(current_wip, line);
 	gnl_cleaning(return_value, &current_wip);
 	return (return_value);
