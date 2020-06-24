@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 22:01:52 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/24 07:33:00 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 		if (fd_wip->last_ret_read < 0)
 			return (-EXIT_FAILURE);
 		buffer[fd_wip->last_ret_read] = '\0';
-		if(append_buffer(fd_wip, buffer, fd_wip->last_ret_read) == -1)
+		if (append_buffer(fd_wip, buffer, fd_wip->last_ret_read) == -1)
 			return (-EXIT_FAILURE);
 		cut_line_n_ret = cut_line_n(line, fd_wip);
 		if (cut_line_n_ret != LINE_NOT_COMPLETE)
@@ -64,7 +64,7 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 void			set_current_wip(t_fd_read_wip *current_wip, int fd)
 {
 	if ((current_wip->fd == fd) && (current_wip->line_wip))
-		return;
+		return ;
 	if (current_wip->line_wip)
 		free(current_wip->line_wip);
 	*current_wip = (struct s_fd_read_wip){fd, INIT_RET_READ, 0, NULL};
@@ -78,7 +78,7 @@ static void		gnl_cleaning(int const return_value,
 		free(current_wip->line_wip);
 		current_wip->line_wip = NULL;
 	}
-	if(buffer)
+	if (buffer)
 		free(buffer);
 }
 
@@ -101,7 +101,7 @@ int				get_next_line(int fd, char **line)
 		if (cut_line_n_ret != LINE_NOT_COMPLETE)
 			return (cut_line_n_ret);
 	}
-	if((buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if ((buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return_value = read_full_line(&current_wip, line, buffer);
 	gnl_cleaning(return_value, &current_wip, buffer);
 	return (return_value);
