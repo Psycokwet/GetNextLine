@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/24 07:34:24 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/24 07:35:12 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
 	}
 	else
 	{
-		tmp = (char*)malloc(sizeof(char) * (unsigned long)(fd_wip->size + BUFFER_SIZE + 1));
+		tmp = (char*)malloc(sizeof(char) *
+		(unsigned long)(fd_wip->size + BUFFER_SIZE + 1));
 		if (!tmp)
 			return (-EXIT_FAILURE);
 		ft_strlcpy(tmp, fd_wip->line_wip, (size_t)(fd_wip->size + 1));
