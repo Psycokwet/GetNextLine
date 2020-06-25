@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 17:14:07 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:18:08 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char		*ft_strdup(const char *src)
 {
 	char	*dst;
 	size_t	len;
-
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (src[i])

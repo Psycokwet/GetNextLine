@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 15:29:39 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:17:44 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct	s_list_summary
 int				ft_strchr(const char *s, int c, ssize_t *indice);
 char			*ft_strdup(const char *src);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t			ft_strlen(const char *s);
 int				cut_line_n(char **line, t_fd_read_wip *fd_wip);
 int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
 ssize_t ret_read);
