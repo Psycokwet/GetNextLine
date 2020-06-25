@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 17:19:04 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:19:32 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ void	set_summary(t_list_summary *summary, int fd)
 		summary->prev = summary->current;
 		summary->current = summary->current->next;
 	}
-	if (!summary->current){
+	if (!summary->current)
+	{
 		summary->current = ft_lstnew(fd);
 		summary->prev->next = summary->current;
 	}
