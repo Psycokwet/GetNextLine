@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 13:58:32 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:29:39 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct	s_list_summary
 
 # define ENDL_FOUND			1
 # define ENDL_NOT_FOUND		0
-#include <stdio.h>
 
 int				ft_strchr(const char *s, int c, ssize_t *indice);
 char			*ft_strdup(const char *src);

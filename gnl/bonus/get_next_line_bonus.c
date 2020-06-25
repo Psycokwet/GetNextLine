@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 14:37:02 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:29:20 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
 	else
 	{
 		tmp = (char*)malloc(sizeof(char) *
-		(unsigned long)(fd_wip->size + BUFFER_SIZE + 1));
+		(unsigned long)(fd_wip->size + ret_read + 1));
 		if (!tmp)
 			return (-EXIT_FAILURE);
 		ft_strlcpy(tmp, fd_wip->line_wip, (size_t)(fd_wip->size + 1));
-		ft_strlcpy(tmp + fd_wip->size, buffer, BUFFER_SIZE + 1);
+		ft_strlcpy(tmp + fd_wip->size, buffer, (unsigned long)ret_read + 1);
 		free(fd_wip->line_wip);
 		fd_wip->line_wip = tmp;
 		fd_wip->size += ret_read;
@@ -47,14 +47,9 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 	cut_line_n_ret = 1;
 	while (fd_wip->last_ret_read)
 	{
-		printf("BEFORE READ : %zd \n", fd_wip->last_ret_read);
-		printf("BEFORE READ : %s \n", buffer);
-		printf("BEFORE READ : %d \n", fd_wip->fd);
 		fd_wip->last_ret_read = read(fd_wip->fd, buffer, BUFFER_SIZE);
-		printf("AFTER READ : %zd \n", fd_wip->last_ret_read);
 		if (fd_wip->last_ret_read < 0)
 			return (-EXIT_FAILURE);
-		printf("REAFTER READ : %zd \n", fd_wip->last_ret_read);
 		buffer[fd_wip->last_ret_read] = '\0';
 		if (append_buffer(fd_wip, buffer, fd_wip->last_ret_read) == -1)
 			return (-EXIT_FAILURE);
@@ -75,8 +70,7 @@ t_list	*ft_lstnew(int fd)
 	if (!new_lst){
 		return (NULL);
 	}
-	new_lst = &(t_list){(t_fd_read_wip){fd, INIT_RET_READ, 0, NULL}, NULL};
-	printf("new_lst->fd_wip->last_ret_read %zd.\n", new_lst->fd_wip.last_ret_read);
+	*new_lst = (t_list){(t_fd_read_wip){fd, INIT_RET_READ, 0, NULL}, NULL};
 	return (new_lst);
 }
 
@@ -104,7 +98,10 @@ static void		gnl_cleaning(int const return_value,
 	{
 		if (summary->current->fd_wip.line_wip)
 			free(summary->current->fd_wip.line_wip);
-		summary->prev->next = summary->current->next;
+		if (summary->prev)
+			summary->prev->next = summary->current->next;
+		else
+			summary->head = NULL;		
 		free(summary->current);
 		summary->current = NULL;
 	}
@@ -131,12 +128,8 @@ int				get_next_line(int fd, char **line)
 		if (cut_line_n_ret != LINE_NOT_COMPLETE)
 			return (cut_line_n_ret);
 	}
-	if ((buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1)))){
-		printf("WTF BUFFER ???%d\n", (BUFFER_SIZE + 1));
-		buffer[0] = '\0';
-		printf("WTF BUFFER ???%s\n", buffer);
+	if ((buffer = (char*)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return_value = read_full_line(&summary.current->fd_wip, line, buffer);
-	}
 	gnl_cleaning(return_value, &summary, buffer);
 	return (return_value);
 }

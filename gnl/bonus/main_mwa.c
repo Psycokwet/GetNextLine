@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 12:33:37 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:33:54 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		main(int argc, char **argv)
 		if (fd[i] < 0)
 			openfd[i] = 0;
 		line[i] = NULL;
-		printf("main FD INIT : [%d] \n", fd[i]);
+		//printf("main FD INIT : [%d] \n", fd[i]);
 		openfd[i] = (1);
 	}
 	while (stop != argc)
@@ -62,7 +62,7 @@ int		main(int argc, char **argv)
 			{
 				openfd[i] = get_next_line(fd[i], &line[i]);
 				if (openfd[i] != -1){
-					printf("main end FD RESULT: [%d] LINE : [%s] OPEN? %d\n", fd[i], line[i], openfd[i]);
+					printf("[%d][%d][%s]\n", fd[i], openfd[i], line[i]);
 					free(line[i]);
 				}
 				else
@@ -88,7 +88,7 @@ int		main(int argc, char **argv)
 	int ret = 1;
 	while (ret == 1){
 		ret = get_next_line(STDIN_FILENO, &line2);
-		printf("Test : [%d][%s]\n", ret , line2);
+		printf("[%d][%s]\n", ret , line2);
 		free(line2);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 14:00:10 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 15:29:58 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,6 @@ int			cut_line_n(char **line, t_fd_read_wip *fd_wip)
 	char	*tmp;
 
 	n_indice = 0;
-	printf("fd_wip->fd %d.\n", fd_wip->fd);
-	printf("fd_wip->line_wip %s.\n", fd_wip->line_wip);
-	printf("fd_wip->last_ret_read %zd.\n", fd_wip->last_ret_read);
 	if (!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
 		return (LINE_NOT_COMPLETE);
 	*line = malloc(sizeof(char) * (unsigned long)(n_indice + 1));
