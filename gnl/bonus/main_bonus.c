@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_mwa.c                                         :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 15:33:54 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:23:03 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int		main(int argc, char **argv)
 
 	char * line2 = NULL;
 	int ret = 1;
+	printf("BONUS\n", ret , line2);
 	while (ret == 1){
 		ret = get_next_line(STDIN_FILENO, &line2);
 		printf("[%d][%s]\n", ret , line2);
