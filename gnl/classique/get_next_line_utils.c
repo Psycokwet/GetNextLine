@@ -6,12 +6,11 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/23 22:25:45 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/24 07:52:06 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int			ft_strchr(const char *s, int c, ssize_t *indice)
 {
