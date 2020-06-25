@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 17:20:15 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:21:12 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				read_full_line(t_fd_read_wip *fd_wip, char **line, char *buffer)
 	return (EXIT_READ_CLOSED);
 }
 
-void	set_summary(t_list_summary *summary, int fd)
+void			set_summary(t_list_summary *summary, int fd)
 {
 	if (!summary->head)
 		summary->head = ft_lstnew(fd);
