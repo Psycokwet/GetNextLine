@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 15:29:58 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:14:07 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,12 @@ char		*ft_strdup(const char *src)
 	char	*dst;
 	size_t	len;
 
-	len = ft_strlen(src) + 1;
+	size_t i;
+
+	i = 0;
+	while (src[i])
+		i++;
+	len = i + 1;
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
@@ -50,22 +55,17 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	if (!src)
 		return (0);
 	if (!dst || dstsize <= 0)
-		return (ft_strlen(src));
+	{
+		i = 0;
+		while (src[i])
+			i++;
+		return (i);
+	}
 	i = (size_t)-1;
 	while (src[++i] && i < dstsize - 1)
 		dst[i] = src[i];
 	dst[i] = '\0';
 	while (src[i])
-		i++;
-	return (i);
-}
-
-size_t		ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	while (s[i])
 		i++;
 	return (i);
 }

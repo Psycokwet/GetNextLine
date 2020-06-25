@@ -11,3 +11,5 @@ git clone https://github.com/Alexandre94H/gnl-war-machine-v2019
 All passed 
 
 
+
+cat /dev/urandom | a.out
