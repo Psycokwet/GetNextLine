@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 11:14:23 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/05 15:46:53 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 13:58:32 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,51 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-/*
-** read, malloc, free authorized
-*/
-
-
 typedef struct	s_fd_read_wip
 {
-	int		    	fd;
-	size_t	    	size;
-	char	        *line_wip;
-}				t_fd_read_wip, *pt_fd_read_wip;
+	int			fd;
+	ssize_t		last_ret_read;
+	ssize_t		size;
+	char		*line_wip;
+}				t_fd_read_wip;
 
 typedef struct	s_list
 {
-	pt_fd_read_wip	fd_wip;
+	t_fd_read_wip	fd_wip;
 	struct s_list	*next;
 }				t_list;
 
+typedef struct	s_list_summary
+{
+	t_list	*head;
+	t_list	*current;
+	t_list	*prev;
+}				t_list_summary;
 
+# define EXIT_READ_OPEN		1
+# define EXIT_READ_CLOSED	0
 
-int	get_next_line(int fd, char **line);
-t_list *	get_current_node(t_list ** head, int fd);
+# define APPEND_SUCCES		0
 
+# define LINE_NOT_COMPLETE	2
 
-// from libft
+# define INIT_RET_READ		-2
 
-int	ft_strchr(const char *s, int c, size_t * indice);
-char	*ft_strdup(const char *src);
+# define ENDL_FOUND			1
+# define ENDL_NOT_FOUND		0
+#include <stdio.h>
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
-//lst
-
-void	ft_lstdelnode(t_list **head, int fd);
-t_list	*ft_lstnew(int fd);
-
+int				ft_strchr(const char *s, int c, ssize_t *indice);
+char			*ft_strdup(const char *src);
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t			ft_strlen(const char *s);
+int				cut_line_n(char **line, t_fd_read_wip *fd_wip);
+int				append_buffer(t_fd_read_wip *fd_wip, char *buffer,
+ssize_t ret_read);
+int				read_full_line(t_fd_read_wip *fd_wip, char **line,
+				char *buffer);
+void			set_summary(t_list_summary *summary, int fd);
+t_list			*ft_lstnew(int fd);
+int				get_next_line(int fd, char **line);
 
 #endif

@@ -6,114 +6,88 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/05 15:46:43 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 14:00:10 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-#include<stdio.h>
-
-// from libft
-int	ft_strchr(const char *s, int c, size_t * indice)
+int			ft_strchr(const char *s, int c, ssize_t *indice)
 {
-	size_t	i;
+	ssize_t	i;
 
 	i = -1;
 	while (s[++i])
 		if ((unsigned char)s[i] == c)
 		{
 			*indice = i;
-			return (1);
+			return (ENDL_FOUND);
 		}
 	if ((unsigned char)s[i] == c)
 	{
 		*indice = i;
-		return (1);
+		return (ENDL_FOUND);
 	}
-	return (0);
+	return (ENDL_NOT_FOUND);
 }
 
 char		*ft_strdup(const char *src)
 {
-    char	*dst;
-    ssize_t len = ft_strlen(src) + 1;
+	char	*dst;
+	size_t	len;
+
+	len = ft_strlen(src) + 1;
 	dst = (char *)malloc(len * sizeof(char));
 	if (dst != NULL)
 		ft_strlcpy(dst, src, len);
 	return (dst);
 }
 
-void	ft_lstdelnode(t_list **head, int fd)
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	t_list * to_delete;
-	t_list * parent;
-
-	if (!*head)
-		return ;
-	if((*head)->fd_wip->fd == fd)
-	{
-		to_delete = *head;
-		head = &(*head)->next;
-	}else{
-		parent = *head;
-		to_delete = (*head)->next;
-		while(to_delete && to_delete->fd_wip->fd != fd){
-			parent = to_delete;
-			to_delete = to_delete->next;
-		}
-		if(!to_delete)
-			return;
-		parent->next = to_delete->next;
-	}
-	if (to_delete->fd_wip)
-	{
-		if (to_delete->fd_wip->line_wip)
-		{
-			free(to_delete->fd_wip->line_wip);
-			to_delete->fd_wip->line_wip = NULL;
-		}
-		free(to_delete->fd_wip);
-		to_delete->fd_wip = NULL;
-	}
-	free(to_delete);
-}
-
-
-t_list	*ft_lstnew(int fd)
-{
-	t_list *new_lst;
-	pt_fd_read_wip fd_wip;
-
-	fd_wip = malloc(sizeof(t_fd_read_wip));
-	if (!fd_wip)
-		return (NULL);
-	fd_wip->fd = fd;
-	fd_wip->line_wip = NULL;
-	new_lst = (t_list*)malloc(sizeof(t_list));
-	if (!new_lst){
-		free(fd_wip);
-		return (NULL);
-	}
-	new_lst->fd_wip = fd_wip;
-	new_lst->next = NULL;
-	return (new_lst);
-}
-
-
-size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	int		i;
+	size_t		i;
 
 	if (!src)
 		return (0);
-	if (!dst || dstsize == 0)
+	if (!dst || dstsize <= 0)
 		return (ft_strlen(src));
-	i = -1;
-	while (src[++i] && i < ((int)dstsize) - 1)
+	i = (size_t)-1;
+	while (src[++i] && i < dstsize - 1)
 		dst[i] = src[i];
 	dst[i] = '\0';
 	while (src[i])
 		i++;
 	return (i);
+}
+
+size_t		ft_strlen(const char *s)
+{
+	size_t i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+int			cut_line_n(char **line, t_fd_read_wip *fd_wip)
+{
+	ssize_t	n_indice;
+	char	*tmp;
+
+	n_indice = 0;
+	printf("fd_wip->fd %d.\n", fd_wip->fd);
+	printf("fd_wip->line_wip %s.\n", fd_wip->line_wip);
+	printf("fd_wip->last_ret_read %zd.\n", fd_wip->last_ret_read);
+	if (!ft_strchr(fd_wip->line_wip, '\n', &n_indice))
+		return (LINE_NOT_COMPLETE);
+	*line = malloc(sizeof(char) * (unsigned long)(n_indice + 1));
+	if (!(*line))
+		return (-EXIT_FAILURE);
+	ft_strlcpy(*line, fd_wip->line_wip, (size_t)n_indice + 1);
+	tmp = ft_strdup(fd_wip->line_wip + n_indice + 1);
+	free(fd_wip->line_wip);
+	fd_wip->line_wip = tmp;
+	fd_wip->size = fd_wip->size - (n_indice + 1);
+	return (fd_wip->last_ret_read == 0 ? EXIT_READ_CLOSED : EXIT_READ_OPEN);
 }
