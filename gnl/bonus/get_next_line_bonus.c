@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 17:10:32 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:19:04 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,15 @@ t_list	*ft_lstnew(int fd)
 	t_list *new_lst;
 
 	new_lst = (t_list*)malloc(sizeof(t_list));
-	if (!new_lst){
+	if (!new_lst)
 		return (NULL);
-	}
 	*new_lst = (t_list){(t_fd_read_wip){fd, INIT_RET_READ, 0, NULL}, NULL};
 	return (new_lst);
 }
 
 void	set_summary(t_list_summary *summary, int fd)
 {
-	if(!summary->head)
+	if (!summary->head)
 		summary->head = ft_lstnew(fd);
 	summary->current = summary->head;
 	summary->prev = NULL;
