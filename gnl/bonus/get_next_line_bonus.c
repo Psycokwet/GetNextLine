@@ -6,7 +6,7 @@
 /*   By: scarboni <scarboni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 10:38:18 by scarboni          #+#    #+#             */
-/*   Updated: 2020/06/25 15:29:20 by scarboni         ###   ########.fr       */
+/*   Updated: 2020/06/25 17:10:32 by scarboni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static void		gnl_cleaning(int const return_value,
 		if (summary->prev)
 			summary->prev->next = summary->current->next;
 		else
-			summary->head = NULL;		
+			summary->head = summary->current->next;	
 		free(summary->current);
 		summary->current = NULL;
 	}
